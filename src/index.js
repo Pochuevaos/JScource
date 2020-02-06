@@ -7,7 +7,11 @@
  Посмотрите как работает forEach и повторите это поведение для массива, который будет передан в параметре array
  */
 function forEach(array, fn) {
+    for (let i = 0; i < array.length; i++ ) {
+        fn(array[i], i, array);
+    }
 }
+//
 
 /*
  Задание 2:
@@ -15,7 +19,13 @@ function forEach(array, fn) {
  Напишите аналог встроенного метода map для работы с массивами
  Посмотрите как работает map и повторите это поведение для массива, который будет передан в параметре array
  */
-function map(array, fn) {
+function map(array, fn, thisArg) {
+    var i, length = array.length, results = [];
+    for (i = 0; i < length; i = i + 1) {
+        results.push(fn.call(thisArg, array[i], i, array));
+    }
+
+    return results;
 }
 
 /*
@@ -25,7 +35,15 @@ function map(array, fn) {
  Посмотрите как работает reduce и повторите это поведение для массива, который будет передан в параметре array
  */
 function reduce(array, fn, initial) {
-}
+    let i = 0;
+    let result = initial || array[i++];
+
+    while (i < array.length) {
+        result = fn(result, array[i], i, array);
+        i++;
+    }
+
+    return result;
 
 /*
  Задание 4:
@@ -35,7 +53,26 @@ function reduce(array, fn, initial) {
  Пример:
    upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
  */
-function upperProps(obj) {
+// Cпособ через массив
+// function upperProps(obj) {
+//     let arr = Object.getOwnPropertyNames(obj); // вернет ["name", "lastName"]
+//     for (let index=0; index < arr.length; index++) {
+//         arr[index] = arr[index].toUpperCase();
+//     }
+//
+//     return arr;
+// }
+function upperProps(obj1) {
+    let arr = Object.getOwnPropertyNames(obj1);
+    let arrNew = [];
+    let a = 0;
+
+    for (let value of arr) {
+        arrNew[a] = value.toUpperCase();
+        a = a + 1;
+    }
+
+    return arrNew;
 }
 
 /*
@@ -44,8 +81,9 @@ function upperProps(obj) {
  Напишите аналог встроенного метода slice для работы с массивами
  Посмотрите как работает slice и повторите это поведение для массива, который будет передан в параметре array
  */
-function slice(array, from, to) {
-}
+// function slice(array, from, to) {
+//
+// }
 
 /*
  Задание 6 *:
