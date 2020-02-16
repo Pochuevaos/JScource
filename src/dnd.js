@@ -27,6 +27,23 @@ const homeworkContainer = document.querySelector('#homework-container');
    homeworkContainer.appendChild(newDiv);
  */
 function createDiv() {
+    const element = document.createElement('div');
+
+    element.className = 'draggable-div';
+    let x = Math.floor(Math.random() * 256);
+    let y = Math.floor(Math.random() * 256);
+    let z = Math.floor(Math.random() * 256);
+
+    element.style.backgroundColor = 'rgb(' + x + ',' + y + ',' + z + ')';
+    element.style.width = Math.floor(Math.random() * 100) + 'px';
+    element.style.height = Math.floor(Math.random() * 100) + 'px';
+    element.style.position = 'absolute';
+    element.style.top = Math.floor(Math.random() * 100) + 'px';
+    element.style.left = Math.floor(Math.random() * 100) + 'px';
+
+    // 'rgb('+getRandomInt(0,255)+', '+getRandomInt(0,255)+', '+getRandomInt(0,255)+')'
+
+    return element;
 }
 
 /*
