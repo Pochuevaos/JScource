@@ -12,7 +12,7 @@
  */
 function createDivWithText(text) {
     const element = document.createElement('div');
-    document.body.appendChild(element);
+
     element.textContent = text;
 
     return element;
@@ -104,7 +104,7 @@ function findError(where) {
  */
 function deleteTextNodes(where) {
     for (let node of where.childNodes) {
-        if (node.nodeType === '3') {
+        if (node.nodeType === 3) {
             where.removeChild(node);
         }
     }
