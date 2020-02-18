@@ -47,7 +47,9 @@ function skipDefault(eventName, target) {
    emulateClick(document.querySelector('a')) // для указанного элемента должно быть сэмулировано события click
  */
 function emulateClick(target) {
-    target.click();
+    const event = new Event('click');
+
+    target.dispatchEvent(event);
 }
 
 /*
