@@ -38,15 +38,71 @@ const filterNameInput = homeworkContainer.querySelector('#filter-name-input');
 const addNameInput = homeworkContainer.querySelector('#add-name-input');
 // текстовое поле со значением cookie
 const addValueInput = homeworkContainer.querySelector('#add-value-input');
-// кнопка "добавить cookie"
+// кнопка 'добавить cookie"
 const addButton = homeworkContainer.querySelector('#add-button');
 // таблица со списком cookie
 const listTable = homeworkContainer.querySelector('#list-table tbody');
 
-filterNameInput.addEventListener('keyup', function() {
+const cookieName = document.querySelector('#add-name-input');
+
+const cookieValue = document.querySelector('#add-value-input');
+
+filterNameInput.addEventListener('keyup', function () {
     // здесь можно обработать нажатия на клавиши внутри текстового поля для фильтрации cookie
 });
 
-addButton.addEventListener('click', () => {
+addButton.addEventListener('click', function () {
+    document.cookie = `${cookieName.value}=${cookieValue.value}`;
+
+    addCookieToTable();
     // здесь можно обработать нажатие на кнопку "добавить cookie"
 });
+
+function addCookieToTable() {
+    if (document.cookie === '') {
+
+    } else {
+        listTable.innerHTML = '';
+        let array = document.cookie.split('; ');
+
+        for (let value of array) {
+            let cookie = value.split('=');
+
+            if (filterNameInput.value.length === 0 || isMatching(cookie[1], filterNameInput.value)
+                || isMatching(cookie[0], filterNameInput.value)) {
+                let tr;
+                let td;
+
+                listTable.appendChild(tr = document.createElement('tr'));
+
+                tr.appendChild(td = document.createElement('td'));
+                td.innerHTML = cookie[0];
+                tr.appendChild(td = document.createElement('td'));
+                td.innerHTML = cookie[1];
+                tr.appendChild(td = document.createElement('td'));
+
+                let btn = document.createElement('button');
+
+                btn.innerText = 'Удалить';
+                btn.onclick = function deleteTableRow() {
+                    tr.remove();
+                    document.cookie = cookie[0] + '=; max-age=0';
+                };
+                td.appendChild(btn);
+            }
+        }
+    }
+}
+
+addCookieToTable();
+
+function isMatching(full, chunk) {
+    const reg = new RegExp(chunk, 'i');
+
+    return (full.search(reg) !== -1)
+}
+
+filterNameInput.addEventListener('keyup', function() {
+    addCookieToTable();
+});
+
