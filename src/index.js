@@ -13,7 +13,7 @@ function delayPromise(seconds) {
 
         setTimeout(() => {
             resolved();
-        }, seconds*1000);
+        }, seconds * 1000);
 
     });
 
